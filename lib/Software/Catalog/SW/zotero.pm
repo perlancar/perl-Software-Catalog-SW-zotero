@@ -92,6 +92,6 @@ sub get_programs {
 }
 
 1;
-# ABSTRACT: Zcoin desktop GUI client
+# ABSTRACT: Zotero
 
 =for Pod::Coverage ^(.+)$
