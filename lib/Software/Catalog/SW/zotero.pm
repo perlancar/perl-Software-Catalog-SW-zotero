@@ -24,7 +24,7 @@ sub meta {
 
 $SPEC{get_latest_version} = {
     v => 1.1,
-    is_method => 1,
+    is_meth => 1,
     args => {
         arch => { schema=>'software::arch*', req=>1 },
     },
@@ -54,7 +54,7 @@ sub canon2native_arch_map {
 
 $SPEC{get_latest_version} = {
     v => 1.1,
-    is_method => 1,
+    is_meth => 1,
     args => {
         version => { schema=>'software::version*' },
         arch => { schema=>'software::arch*', req=>1 },
