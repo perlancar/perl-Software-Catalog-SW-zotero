@@ -85,9 +85,7 @@ sub get_download_url {
 sub get_programs {
     my ($self, %args) = @_;
     [200, "OK", [
-        {name=>"zcoin-cli", path=>"/bin"},
-        {name=>"zcoin-qt", path=>"/bin"},
-        {name=>"zcoind", path=>"/bin"},
+        {name=>"zotero", path=>"/"},
     ]];
 }
 
