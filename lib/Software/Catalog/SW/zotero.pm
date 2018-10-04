@@ -12,13 +12,13 @@ use Software::Catalog::Util qw(extract_from_url);
 
 use Role::Tiny::With;
 with 'Software::Catalog::Role::Software';
-#with 'Software::Catalog::Role::VersionScheme::SemVer';
 
 our %SPEC;
 
 sub meta {
     return {
         homepage_url => "https://www.zotero.org/",
+        versioning_scheme => "Dotted",
     };
 }
 
