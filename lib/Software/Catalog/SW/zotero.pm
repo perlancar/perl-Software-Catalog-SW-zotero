@@ -11,6 +11,7 @@ use PerlX::Maybe;
 use Software::Catalog::Util qw(extract_from_url);
 
 use Role::Tiny::With;
+with 'Versioning::Scheme::Dotted';
 with 'Software::Catalog::Role::Software';
 
 our %SPEC;
@@ -18,7 +19,6 @@ our %SPEC;
 sub meta {
     return {
         homepage_url => "https://www.zotero.org/",
-        versioning_scheme => "Dotted",
     };
 }
 
@@ -82,11 +82,13 @@ sub get_download_url {
      }];
 }
 
-sub get_programs {
+sub get_archive_info {
     my ($self, %args) = @_;
-    [200, "OK", [
-        {name=>"zotero", path=>"/"},
-    ]];
+    [200, "OK", {
+        programs => [
+            {name=>"zotero", path=>"/"},
+        ],
+    }];
 }
 
 1;
