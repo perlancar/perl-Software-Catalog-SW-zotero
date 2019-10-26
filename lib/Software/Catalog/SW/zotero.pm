@@ -14,22 +14,9 @@ use Role::Tiny::With;
 with 'Versioning::Scheme::Dotted';
 with 'Software::Catalog::Role::Software';
 
-our %SPEC;
+sub homepage_url { "https://www.zotero.org/" }
 
-sub meta {
-    return {
-        homepage_url => "https://www.zotero.org/",
-    };
-}
-
-$SPEC{get_latest_version} = {
-    v => 1.1,
-    is_meth => 1,
-    args => {
-        arch => { schema=>'software::arch*', req=>1 },
-    },
-};
-sub get_latest_version {
+sub latest_version {
     my ($self, %args) = @_;
 
     my $carch = $args{arch};
@@ -52,20 +39,12 @@ sub canon2native_arch_map {
     },
 }
 
-$SPEC{get_latest_version} = {
-    v => 1.1,
-    is_meth => 1,
-    args => {
-        version => { schema=>'software::version*' },
-        arch => { schema=>'software::arch*', req=>1 },
-    },
-};
-sub get_download_url {
+sub download_url {
     my ($self, %args) = @_;
 
     my $version = $args{version};
     if (!$version) {
-        my $verres = $self->get_latest_version(arch => $args{arch});
+        my $verres = $self->latest_version(arch => $args{arch});
         return [500, "Can't get latest version: $verres->[0] - $verres->[1]"]
             unless $verres->[0] == 200;
         $version = $verres->[2];
@@ -82,7 +61,7 @@ sub get_download_url {
      }];
 }
 
-sub get_archive_info {
+sub archive_info {
     my ($self, %args) = @_;
     [200, "OK", {
         programs => [
