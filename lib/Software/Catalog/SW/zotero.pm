@@ -1,6 +1,8 @@
 package Software::Catalog::SW::zotero;
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 use 5.010001;
@@ -14,21 +16,16 @@ use Role::Tiny::With;
 with 'Versioning::Scheme::Dotted';
 with 'Software::Catalog::Role::Software';
 
-sub homepage_url { "https://www.zotero.org/" }
-
-sub latest_version {
+sub archive_info {
     my ($self, %args) = @_;
-
-    my $carch = $args{arch};
-    return [400, "Please specify arch"] unless $carch;
-
-    my $narch = $self->_canon2native_arch($carch);
-
-    extract_from_url(
-        url => "https://www.zotero.org/download/",
-        re  => qr!"standaloneVersions".+"\Q$narch\E":"([^"]+)"!,
-    );
+    [200, "OK", {
+        programs => [
+            {name=>"zotero", path=>"/"},
+        ],
+    }];
 }
+
+sub available_versions { [501, "Not implemented"] }
 
 sub canon2native_arch_map {
     return +{
@@ -61,14 +58,25 @@ sub download_url {
      }];
 }
 
-sub archive_info {
+sub homepage_url { "https://www.zotero.org/" }
+
+sub is_dedicated_profile { 0 }
+
+sub latest_version {
     my ($self, %args) = @_;
-    [200, "OK", {
-        programs => [
-            {name=>"zotero", path=>"/"},
-        ],
-    }];
+
+    my $carch = $args{arch};
+    return [400, "Please specify arch"] unless $carch;
+
+    my $narch = $self->_canon2native_arch($carch);
+
+    extract_from_url(
+        url => "https://www.zotero.org/download/",
+        re  => qr!"standaloneVersions".+"\Q$narch\E":"([^"]+)"!,
+    );
 }
+
+sub release_note { [501, "Not implemented"] }
 
 1;
 # ABSTRACT: Zotero
